@@ -3,6 +3,7 @@ package HealthFreak;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
+import HealthFreak.City;
 
 public class CsvParser4 {
 	
@@ -23,7 +24,17 @@ public class CsvParser4 {
 		while((line = br.readLine()) != null) {
 			CSVRecord record = processRecord(line, delim);
 			file.addRecord(record);
+			City.getArray();
+			for(int i = 0; i < City.objArray.length; i++) {
+				City.objArray[i] = record;
+			}
 		}
+		
+		/*
+		for(int i = 0; i < City.objArray.length; i++) {
+			System.out.println(City.objArray[i]);
+		}*/
+		
 		br.close();
 		return file;
 	}
@@ -58,6 +69,8 @@ public class CsvParser4 {
 			}
 		}
 		record.addValue(value.toString());
+		//City.getArray();
+		//City.objArray[i] = record;
 		return record;
 	}
 	

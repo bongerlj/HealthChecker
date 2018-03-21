@@ -2,6 +2,7 @@ package HealthFreak;
 
 import java.util.ArrayList;
 import java.util.List;
+import HealthFreak.City;
 
 public class CSVFile {
 	
@@ -9,7 +10,7 @@ public class CSVFile {
 	private String name;
 	
 	private CSVRecord header;
-	private List<CSVRecord> records;
+	private static List<CSVRecord> records;
 	
 	public CSVFile(String path, String name) {
 		this.path = path;
@@ -30,7 +31,7 @@ public class CSVFile {
 		records.remove(index);
 	}
 	
-	public CSVRecord getRecord(int index) {
+	public static CSVRecord getRecord(int index) {
 		return records.get(index);
 	}
 
@@ -52,6 +53,14 @@ public class CSVFile {
 
 	public List<CSVRecord> getRecords() {
 		return records;
+	}
+	
+	public static CSVRecord[] toArray() {
+		City.getArray();
+		for(int i = 0; i < records.size(); i++) {
+			City.objArray[i] = getRecord(i);
+		}
+		return City.objArray;
 	}
 	
 	public String toString() {

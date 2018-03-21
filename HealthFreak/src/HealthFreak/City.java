@@ -8,11 +8,18 @@ public class City {
 	private int population;
 	private Point pos;
 	private int [] cond = new int [N];
+	static CSVRecord[] objArray = new CSVRecord[32];
 
 	City(String cityName, int population){
 		this.cityName=cityName;
 		this.population = population;
+		
 	}
+	
+	static CSVRecord[] getArray() {
+		return objArray;
+	}
+	
 	private String getCity(){
 		return cityName;
 	}
