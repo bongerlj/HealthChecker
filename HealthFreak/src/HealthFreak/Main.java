@@ -11,7 +11,7 @@ public class Main {
 		{
 			try {
 				File csvFile = new File("ex.csv");
-				CSVFile file = CsvParser4.parseFile(csvFile,  true,  ',');
+				CSVFile file = CsvParser4.parseFile(csvFile,  false,  ',');
 				//System.out.println(file);
 				CSVFile.toArray();
 				for(int i = 0; i < City.objArray.length; i++) {
