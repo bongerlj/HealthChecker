@@ -20,7 +20,7 @@ public class City {
 		return objArray;
 	}
 	
-	private String getCity(){
+	public String getCity(){
 		return cityName;
 	}
 	public int [] getCond(){

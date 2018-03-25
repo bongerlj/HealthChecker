@@ -1,4 +1,4 @@
-package sortPack;
+package HealthFreak;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
