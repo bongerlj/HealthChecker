@@ -9,7 +9,7 @@ public class Search {
 	
 	
 	public static City search (City[] cities, String name){
-		Heapsort.sortHeap(cities);
+		QuickSort.sort(cities);
 		int index = binarySearch(cities, 0, cities.length-1, name);
 		if (index == -1){
 			return null;
@@ -79,7 +79,7 @@ public class Search {
 	public static void main(String[]args) {
 		City[] cities = {new City("New York", 32250), new City("London", 3120),new City("Toronto", 32250),new City("Hamilton", 1250), new City("Chicago", 3250)};
 
-		System.out.println(search(cities, "Toronto").getCity());
+		System.out.println(search(cities, "New York").getCity());
 	}
 
 }
