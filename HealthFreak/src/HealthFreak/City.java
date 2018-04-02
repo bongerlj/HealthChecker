@@ -8,12 +8,14 @@ public class City {
 	
 	private String cityName;
 	private int population;
+	public static int citiesCount = 0;
 	private Point pos;
 	private List<Integer> top;
 	private int [] cond = new int [N];
-	static CSVRecord[] objArray = new CSVRecord[239];
+	static CSVRecord[] objArray = new CSVRecord[1449];
 
 	City(String cityName, int population){
+		citiesCount+=1;
 		this.cityName=cityName;
 		this.population = population;
 		

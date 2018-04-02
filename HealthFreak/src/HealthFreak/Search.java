@@ -25,7 +25,7 @@ public class Search {
  
             // If the element is present at the 
             // middle itself
-            if (arr[mid].getCity() == x){
+            if (arr[mid].getCity().equals(x)){
                return mid;
             }
  
@@ -76,10 +76,5 @@ public class Search {
 	}
 	
 	
-	public static void main(String[]args) {
-		City[] cities = {new City("New York", 32250), new City("London", 3120),new City("Toronto", 32250),new City("Hamilton", 1250), new City("Chicago", 3250)};
-
-		System.out.println(search(cities, "New York").getCity());
-	}
 
 }

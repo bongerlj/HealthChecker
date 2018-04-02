@@ -1,17 +1,46 @@
+package HealthFreak;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.util.Arrays;
 public class mainGui {
 	static Container cp;
 	static JFrame  f;
+	private static String[] conditions = new String[]{"ACCESS2","ARTHRITIS","BINGE","BPHIGH","BPMED","CANCER","CASTHMA","CHD","CSMOKING","DIABETES","HIGHCHOL","KIDNEY","OBESITY"};
+	static City[] cities = new City[City.objArray.length];
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
+		Main.main(null);
+		
+		
+		
 		f = new Frame();
 		cp = f.getContentPane();
 		cp.add(new MainMenu());
         f.show();
         f.setVisible(true);
 	}
+	
+	
+	public static int findCity(City[] cities, String city){
+		for (int i =0; i<cities.length; i++){
+			
+			if (cities[i] == null){
+				return i;
+			}
+			else if(city.equals(cities[i].getCity())){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	
 	public static void paneSwitch(int i){
 		switch (i) {
 	    case 0:
@@ -152,7 +181,14 @@ class SearchPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          tA.setText(tF.getText());
+			    	  //System.out.println(Search.search(Main.cities, "Alabama").getCity());
+			    	  City city = Search.search(Main.cities, tF.getText());
+			    	  if (city == null){
+			    		  tA.setText("Couldn't find city!");
+			    	  }
+			    	  else{
+			    		  tA.setText(city.getCity());
+			    	  }
 			      }
 			  });
 			  backB.addActionListener( new ActionListener()

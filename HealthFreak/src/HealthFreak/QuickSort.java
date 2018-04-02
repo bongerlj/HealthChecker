@@ -23,22 +23,36 @@ public class QuickSort {
 	    }
 	  }
 	
+	private static int partition(City[] a, int lo, int hi){
+		int i = lo;
+		int j = hi +1;
+		City v = a[lo];
+		while(true){
+			while(less (a[++i], v)){
+				if (i == hi){
+					break;
+				}
+			}
+			while(less(v, a[--j])){
+				if (j == lo){
+					break;
+				}
+			}
+			if (i>=j){
+				break;
+			}
+			exch(a, i, j);
+		}
+		exch(a, lo, j);
+		return j;
+	}
+	
 	private static void sort(City[] a, int lo, int hi) { // See page 289 for public sort() that calls this method.
 		if (hi <= lo)
 			return;
-		int lt = lo, i = lo + 1, gt = hi;
-		City v = a[lo];
-		while (i <= gt) {
-			
-			if (less (a[i], v))
-				exch(a, lt++, i++);
-			else if (!(less (a[i], v)))
-				exch(a, i, gt--);
-			else
-				i++;
-		} // Now a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
-		sort(a, lo, lt - 1);
-		sort(a, gt + 1, hi);
+		int j = partition(a, lo, hi);
+		sort(a, lo, j - 1);
+		sort(a, j + 1, hi);
 	}
 	
 	private static boolean less( City y, City z) {
