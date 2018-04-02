@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import javax.swing.event.ListSelectionEvent;
 
 import HealthFreak.CSVFile;
 import HealthFreak.CsvParser4;
@@ -18,11 +22,12 @@ import HealthFreak.Graph;
 public class Main {
 	
 	private static String[] conditions = new String[]{"ACCESS2","ARTHRITIS","BINGE","BPHIGH","BPMED","CANCER","CASTHMA","CHD","CSMOKING","DIABETES","HIGHCHOL","KIDNEY","OBESITY"};
-	
+	static City[] cities; 
 	public static void main(String[]args) {
 		{
-			City[] cities = new City[City.objArray.length];
+			cities = new City[City.objArray.length];
 			try {
+				
 				File csvFile = new File("ex.csv");
 				CSVFile file = CsvParser4.parseFile(csvFile,  false,  ',');
 				//System.out.println(file);
@@ -48,7 +53,9 @@ public class Main {
 							if (condIndex != -1){
 								cities[indexOfCity].setCond(condIndex);
 							}
+							
 						}
+						//
 					}catch (Exception e) {
 						System.out.println("Not valid city");
 					}
@@ -60,6 +67,7 @@ public class Main {
 			}
 			
 			System.out.println("Top 3 Conditions for all cities:");
+			
 			for (int i =0; i<cities.length; i++){
 				
 				if (cities[i]!=null){
@@ -68,7 +76,9 @@ public class Main {
 					System.out.println(cities[i].getTop());
 				}
 			}
-			
+			System.out.println(City.citiesCount);
+			City[] citiesList = Arrays.copyOfRange(cities,0,City.citiesCount);
+			System.out.println(Search.search(citiesList, "Davie").getCity());
 			List<List<Integer>> graph = Graph.connectedTo(cities, "DIABETES");
 			System.out.println(graph);	
 		}
