@@ -41,7 +41,7 @@ public class Main {
 						if (cities[indexOfCity] != null){
 							if (condIndex != -1){
 								cities[indexOfCity].setCond(condIndex);
-								cities[indexOfCity].setCond(0);
+								//cities[indexOfCity].setCond(0);
 							}
 						}else{
 							cities[indexOfCity] = new City(name, population);
@@ -59,17 +59,17 @@ public class Main {
 				e.printStackTrace();
 			}
 			
-			
+			System.out.println("Top 3 Conditions for all cities:");
 			for (int i =0; i<cities.length; i++){
 				
 				if (cities[i]!=null){
 					cities[i].top_three();
-					System.out.println(Arrays.toString(cities[i].getCond()));
+					//System.out.println(Arrays.toString(cities[i].getCond()));
 					System.out.println(cities[i].getTop());
 				}
 			}
 			
-			List<List<Integer>> graph = Graph.connectedTo(cities, "CASTHMA");
+			List<List<Integer>> graph = Graph.connectedTo(cities, "DIABETES");
 			System.out.println(graph);	
 		}
 		

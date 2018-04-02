@@ -25,7 +25,7 @@ public class Graph {
 			graph.add(temp);
 		}
 		for (int i = 0; i< graph.size(); i++){
-			System.out.println(cities.get(i).getTop());
+			//System.out.println(cities.get(i).getTop());
 			for (int j=0; j< graph.get(0).size(); j++){
 				if (cities.get(i).getTop().contains(conditionIndex) && cities.get(j).getTop().contains(conditionIndex)){
 					graph.get(i).set(j,1);
