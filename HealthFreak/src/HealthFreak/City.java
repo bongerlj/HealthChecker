@@ -12,7 +12,7 @@ public class City {
 	private Point pos;
 	private List<Integer> top;
 	private int [] cond = new int [N];
-	static CSVRecord[] objArray = new CSVRecord[1449];
+	static CSVRecord[] objArray = new CSVRecord[17068];
 
 	City(String cityName, int population){
 		citiesCount+=1;

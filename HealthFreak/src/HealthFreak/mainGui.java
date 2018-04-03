@@ -20,7 +20,7 @@ public class mainGui {
 		cities = Main.cities;
 		
 		
-		f = new Frame();
+		f = new Frame("Health Freak", true);
 		cp = f.getContentPane();
 		cp.add(new MainMenu());
         f.show();
@@ -90,13 +90,15 @@ public class mainGui {
 	}
 }
 class Frame extends JFrame {
-	  public Frame() {
-		setTitle("Health Freak");
-		setSize(310,200); //set size
+	  public Frame(String name, Boolean close) {
+		setTitle(name);
+		setSize(800,800); //set size
 		setLocation(10,10); //set topleft corner
 		addWindowListener(new WindowAdapter() { //program closer on exit
 		  	public void windowClosing(WindowEvent e) {
-			   System.exit(0);
+		  		if (close){
+		  			System.exit(0);
+		  		}
 		  	}
 		} );
 	  }
@@ -296,11 +298,14 @@ class SortPanel extends JPanel {
 		  }
 }
 class GraphPanel extends JPanel {
+	
 	Font [] fs;
 	JButton enterSB;
 	JButton backB;
 	JTextField tF;
+	JComboBox dropDownCond;
 	JLabel menuL;
+	static Container cp;
 	JTextArea tA;
 		  public GraphPanel() {
 			  fs = new Font [3];
@@ -309,18 +314,20 @@ class GraphPanel extends JPanel {
 			  fs[2]  = new Font("Open Sans", 0 , 12);
 			  enterSB = new JButton("Search");
 			  backB = new JButton("Return");
+			  dropDownCond = new JComboBox<String> (mainGui.getCond());
 			  menuL = new JLabel ("Graph Feature");
 			  tA = new JTextArea ("");
 			  tF = new JTextField ();
 			  backB.setFont(fs[2]);
 			  menuL.setFont(fs[0]);
 			  enterSB.setFont(fs[1]);
+			  dropDownCond.setPreferredSize(new Dimension( 200, 24 ));
 			  tF.setPreferredSize(new Dimension( 200, 24 ));
 			  tA.setPreferredSize(new Dimension(200, 100 ));
 			  tA.setEditable(false);
 			  add(menuL, BorderLayout.PAGE_START);
-			  add(tA, BorderLayout.CENTER);	  
-			  add(tF, BorderLayout.LINE_START);
+			  add(dropDownCond, BorderLayout.LINE_START);
+			  //add(tA, BorderLayout.CENTER);	  
 			  add(backB, BorderLayout.PAGE_END);
 			  add(enterSB, BorderLayout.CENTER);	
 			  enterSB.addActionListener( new ActionListener()
@@ -328,14 +335,35 @@ class GraphPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			    	  if (tF.getText().equals("")){
-			    		  
-			    	  }else{
-			    		  List<List<Integer>> graph = Graph.connectedTo(Main.cities, tF.getText());
-			    		  System.out.println(graph);
-			    		  
-			    		  
-			    	  }
+			    	  
+			    	List<List<Integer>> graph = Graph.connectedTo(Main.cities, dropDownCond.getSelectedItem().toString());
+			    	System.out.println(graph);
+			    	
+			    	
+			    	JFrame f = new Frame(dropDownCond.getSelectedItem().toString(), false);
+					cp = f.getContentPane();
+					cp.setBounds(50, 50, 1000, 1000);
+					cp.add(new drawGraph(graph, Main.cities));
+			        f.show();
+			        f.setVisible(true);
+			    	
+//			    	
+//			    	//1. Create the frame.
+//			    	JFrame frame = new JFrame("FrameDemo");
+//			    	
+//			    	//2. Optional: What happens when the frame closes?
+//			    	//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//			    	//3. Create components and put them in the frame.
+//			    	//...create emptyLabel...
+//			    	frame.getContentPane().add(menuL, BorderLayout.CENTER);
+//
+//			    	//4. Size the frame.
+//			    	frame.pack();
+//
+//			    	//5. Show it.
+//			    	frame.setVisible(true);
+			    		
 			      }
 			  });
 			  backB.addActionListener( new ActionListener()
