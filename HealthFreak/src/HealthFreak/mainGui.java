@@ -16,7 +16,7 @@ public class mainGui {
 		
 		
 		Main.main(null);
-		
+		cities = Main.cities;
 		
 		
 		f = new Frame();
@@ -38,6 +38,26 @@ public class mainGui {
 			}
 		}
 		return -1;
+	}
+	public static String toString(int[]cond){
+		String s="";
+		for (int i =0; i<13; i++)
+		{
+				s = s +conditions[i]+ ": "+ cond[i]+ "\n";
+				System.out.println(s);
+		}
+		return s;
+	}
+	public static String [] getCond(){
+		return conditions;
+	}
+	public static String [] getCities(){
+		String [] s = new String [cities.length]; 
+		for (int i = 0; i < cities.length; i++)
+		{
+			s[i] = cities[i].getCity();
+		}
+		return s;
 	}
 	
 	
@@ -115,7 +135,7 @@ class MainMenu extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          System.out.println("searchB clicked");
+			          //System.out.println("searchB clicked");
 			          mainGui.paneSwitch(1);
 			      }
 			  });
@@ -124,7 +144,7 @@ class MainMenu extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          System.out.println("sortB clicked");
+			          //System.out.println("sortB clicked");
 			          mainGui.paneSwitch(2);
 			      }
 			  });
@@ -133,7 +153,7 @@ class MainMenu extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          System.out.println("graphhB clicked");
+			          //System.out.println("graphhB clicked");
 			          mainGui.paneSwitch(3);
 			      }
 			  });
@@ -142,7 +162,7 @@ class MainMenu extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          System.out.println("backB clicked");
+			          //System.out.println("backB clicked");
 			          mainGui.paneSwitch(0);
 			      }
 			  });
@@ -169,8 +189,9 @@ class SearchPanel extends JPanel {
 			  backB.setFont(fs[2]);
 			  menuL.setFont(fs[0]);
 			  tF.setPreferredSize(new Dimension( 200, 24 ));
-			  tA.setPreferredSize(new Dimension( 200, 24 ));
+			  //tA.setPreferredSize(new Dimension( 200, 24 ));
 			  tA.setEditable(false);
+			  tA.setLineWrap(true);
 			  add(menuL, BorderLayout.PAGE_START);
 			  add(tF, BorderLayout.LINE_START);
 			  add(enterSB, BorderLayout.CENTER);	  
@@ -187,7 +208,7 @@ class SearchPanel extends JPanel {
 			    		  tA.setText("Couldn't find city!");
 			    	  }
 			    	  else{
-			    		  tA.setText(city.getCity());
+			    		  tA.setText(mainGui.toString(city.getCond()));
 			    	  }
 			      }
 			  });
@@ -196,7 +217,7 @@ class SearchPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          System.out.println("backB clicked");
+			         // System.out.println("backB clicked");
 			          mainGui.paneSwitch(0);
 			      }
 			  });
@@ -204,41 +225,60 @@ class SearchPanel extends JPanel {
 }
 class SortPanel extends JPanel {
 	Font [] fs;
-	JButton enterSB;
+	JButton enterCondB;
+	JButton enterCityB;
 	JButton backB;
 	JLabel menuL;
-	JComboBox dropDown;
+	JComboBox dropDownCond;
+	JComboBox dropDownCity;	
 	JTextArea tA;
 		  public SortPanel() {
 			  fs = new Font [3];
 			  fs[0]  = new Font("Lato", Font.BOLD, 36);
 			  fs[1]  = new Font("Open Sans", 0 , 20);
 			  fs[2]  = new Font("Open Sans", 0 , 12);
-			  enterSB = new JButton("Sort");
+			  enterCondB = new JButton("Sort Cities");
+			  enterCityB = new JButton("Sort Conditions");
 			  backB = new JButton("Return");
 			  menuL = new JLabel ("Sort Feature");
 			  String [] cond = new String [8];
-			  for (int i = 0; i<8; i++)
-				  cond[i] = "Condition "+(i+1);
-			  dropDown = new JComboBox<String> (cond);
+			  dropDownCond = new JComboBox<String> (mainGui.getCond());
+			  dropDownCity = new JComboBox<String> (mainGui.getCities());
 			  tA = new JTextArea ();
-			  enterSB.setFont(fs[1]);
+			  enterCondB.setFont(fs[1]);
+			  enterCityB.setFont(fs[1]);
 			  backB.setFont(fs[2]);
 			  menuL.setFont(fs[0]);
-			  dropDown.setPreferredSize(new Dimension( 200, 24 ));
-			  tA.setPreferredSize(new Dimension( 200, 24 ));
+			  dropDownCond.setPreferredSize(new Dimension( 200, 24 ));
+			  dropDownCity.setPreferredSize(new Dimension( 200, 24 ));
 			  tA.setEditable(false);
 			  add(menuL, BorderLayout.PAGE_START);
-			  add(dropDown, BorderLayout.LINE_START);
-			  add(enterSB, BorderLayout.CENTER);	  
+			  add(dropDownCond, BorderLayout.LINE_START);
+			  add(enterCondB, BorderLayout.CENTER);
+			  add(dropDownCity, BorderLayout.LINE_START);
+			  add(enterCityB, BorderLayout.CENTER);	  
 			  add(tA, BorderLayout.LINE_END);
 			  add(backB, BorderLayout.PAGE_END);
-			  enterSB.addActionListener( new ActionListener()
+			  enterCondB.addActionListener( new ActionListener()
 			  {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          tA.setText(dropDown.getSelectedItem().toString());
+			    	  //sort (city[], int)
+			          //QuickSort.sort(cities, dropDownCond.getSelectedIndex());
+			    	  tA.setText("Cities sorted by occurence of "+dropDownCond.getSelectedItem().toString()+":");
+			    	  tA.append("");
+			      }
+			  });
+			  enterCityB.addActionListener( new ActionListener()
+			  {
+			      @Override
+			      public void actionPerformed(ActionEvent e)
+			      {
+			    	  //sort (city[], int)
+			          //QuickSort.sort(cities, dropDownCond.getSelectedIndex());
+			    	  tA.setText("Conditions sorted by occurence in "+dropDownCity.getSelectedItem().toString()+":");
+			    	  tA.append("");
 			      }
 			  });
 			  backB.addActionListener( new ActionListener()
@@ -246,7 +286,7 @@ class SortPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          System.out.println("backB clicked");
+			          //System.out.println("backB clicked");
 			          mainGui.paneSwitch(0);
 			      }
 			  });
@@ -279,7 +319,7 @@ class GraphPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          System.out.println("backB clicked");
+			          //System.out.println("backB clicked");
 			          mainGui.paneSwitch(0);
 			      }
 			  });
