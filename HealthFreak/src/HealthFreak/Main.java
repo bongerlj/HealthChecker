@@ -49,10 +49,13 @@ public class Main {
 								//cities[indexOfCity].setCond(0);
 							}
 						}else{
-							cities[indexOfCity] = new City(name, population);
-							if (condIndex != -1){
-								cities[indexOfCity].setCond(condIndex);
+							if (!name.equals("")){
+								cities[indexOfCity] = new City(name, population);
+								if (condIndex != -1){
+									cities[indexOfCity].setCond(condIndex);
+								}
 							}
+							
 							
 						}
 						//

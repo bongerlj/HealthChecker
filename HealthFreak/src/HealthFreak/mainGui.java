@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 public class mainGui {
 	static Container cp;
 	static JFrame  f;
@@ -149,6 +150,8 @@ class MainMenu extends JPanel {
 		  }
 }
 class SearchPanel extends JPanel {
+	private static String[] conditions = new String[]{"ACCESS2","ARTHRITIS","BINGE","BPHIGH","BPMED","CANCER","CASTHMA","CHD","CSMOKING","DIABETES","HIGHCHOL","KIDNEY","OBESITY"};
+
 	Font [] fs;
 	JButton enterSB;
 	JButton backB;
@@ -256,6 +259,7 @@ class GraphPanel extends JPanel {
 	Font [] fs;
 	JButton enterSB;
 	JButton backB;
+	JTextField tF;
 	JLabel menuL;
 	JTextArea tA;
 		  public GraphPanel() {
@@ -267,13 +271,33 @@ class GraphPanel extends JPanel {
 			  backB = new JButton("Return");
 			  menuL = new JLabel ("Graph Feature");
 			  tA = new JTextArea ("");
+			  tF = new JTextField ();
 			  backB.setFont(fs[2]);
 			  menuL.setFont(fs[0]);
+			  enterSB.setFont(fs[1]);
+			  tF.setPreferredSize(new Dimension( 200, 24 ));
 			  tA.setPreferredSize(new Dimension(200, 100 ));
 			  tA.setEditable(false);
 			  add(menuL, BorderLayout.PAGE_START);
 			  add(tA, BorderLayout.CENTER);	  
+			  add(tF, BorderLayout.LINE_START);
 			  add(backB, BorderLayout.PAGE_END);
+			  add(enterSB, BorderLayout.CENTER);	
+			  enterSB.addActionListener( new ActionListener()
+			  {
+			      @Override
+			      public void actionPerformed(ActionEvent e)
+			      {
+			    	  if (tF.getText().equals("")){
+			    		  
+			    	  }else{
+			    		  List<List<Integer>> graph = Graph.connectedTo(Main.cities, tF.getText());
+			    		  System.out.println(graph);
+			    		  
+			    		  
+			    	  }
+			      }
+			  });
 			  backB.addActionListener( new ActionListener()
 			  {
 			      @Override
