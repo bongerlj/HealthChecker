@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class City {
-	private int N = 25;
+	private int N = 13;
 	
 	private String cityName;
 	private int population;

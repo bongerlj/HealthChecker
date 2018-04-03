@@ -267,10 +267,18 @@ class SortPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			    	  //sort (city[], int)
-			          //QuickSort.sort(cities, dropDownCond.getSelectedIndex());
+			    	  City[] c = mainGui.cities;
+			    	  int n =  dropDownCond.getSelectedIndex();
+			    	  Heapsort.sortHeap(c, c.length, n);
+			    	  for(int i = 0; i < c.length / 2; i++)
+			    	  {
+			    	      City temp = c[i];
+			    	      c[i] = c[c.length - i - 1];
+			    	      c[c.length - i - 1] = temp;
+			    	  }
 			    	  tA.setText("Cities sorted by occurence of "+dropDownCond.getSelectedItem().toString()+":");
-			    	  tA.append("");
+			    	  for (int i = 0; i < c.length; i++)
+			    		  tA.append("\n"+c[i].getCity()+ ", "+c[i].getCond(n));
 			      }
 			  });
 			  enterCityB.addActionListener( new ActionListener()
@@ -278,10 +286,22 @@ class SortPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			    	  //sort (city[], int)
-			          //QuickSort.sort(cities, dropDownCond.getSelectedIndex());
+			    	  String [] s = mainGui.getCond();
+			    	  int [] cond = mainGui.cities[dropDownCity.getSelectedIndex()].getCond();
+			  		  System.out.println(s.length+", "+cond.length);
+			    	  Heapsort2.sortHeap(s, cond, cond.length);
+			    	  for(int i = 0; i < s.length / 2; i++)
+			    	  {
+			    	      String temp = s[i];
+			    	      s[i] = s[s.length - i - 1];
+			    	      s[s.length - i - 1] = temp;
+			    	      int t = cond[i];
+			    	      cond[i] = cond[cond.length - i - 1];
+			    	      cond[cond.length - i - 1] = t;
+			    	  }
 			    	  tA.setText("Conditions sorted by occurence in "+dropDownCity.getSelectedItem().toString()+":");
-			    	  tA.append("");
+			    	  for (int i = 0; i < s.length; i++)
+			    		  tA.append("\n"+s[i]+ ", " +cond[i]);
 			      }
 			  });
 			  backB.addActionListener( new ActionListener()
