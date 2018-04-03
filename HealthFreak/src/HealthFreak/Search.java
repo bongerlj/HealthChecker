@@ -9,12 +9,15 @@ public class Search {
 	
 	
 	public static City search (City[] cities, String name){
-		QuickSort.sort(cities);
-		int index = binarySearch(cities, 0, cities.length-1, name);
-		if (index == -1){
-			return null;
+		synchronized(cities){
+			QuickSort.sort(cities);
+			int index = binarySearch(cities, 0, cities.length-1, name);
+			if (index == -1){
+				return null;
+			}
+			return cities[index];
 		}
-		return cities[index];
+		
 	}
 	
 	private static int binarySearch(City arr[], int l, int r, String x)
