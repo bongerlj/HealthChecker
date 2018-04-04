@@ -17,6 +17,13 @@ public class drawGraph extends Applet
 	
 	  public void paint (Graphics g)
 	  {			                 // using drawRoundRect()
+		  g.setColor(Color.GREEN);
+		  g.drawString("Connected", 700, 700);
+		  g.drawOval(700-10, 700-50, 90, 90);
+		  g.setColor(Color.red);
+		  g.drawString("Not", 620, 690);
+		  g.drawString("Connected", 600, 700);
+		  g.drawOval(600-10, 700-50, 90, 90);
 		  int x = 100;
 		  int y = 100;
 		  Color color = Color.red;

@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 public class mainGui {
 	static Container cp;
 	static JFrame  f;
@@ -208,7 +209,9 @@ class SearchPanel extends JPanel {
 			      public void actionPerformed(ActionEvent e)
 			      {
 			    	  //System.out.println(Search.search(Main.cities, "Alabama").getCity());
+			    	  tA.setText("Loading...");
 			    	  City city = Search.search(Main.cities, tF.getText());
+			    	  
 			    	  if (city == null){
 			    		  tA.setText("Couldn't find city!");
 			    	  }
@@ -332,7 +335,7 @@ class GraphPanel extends JPanel {
 			  fs[0]  = new Font("Lato", Font.BOLD, 36);
 			  fs[1]  = new Font("Open Sans", 0 , 20);
 			  fs[2]  = new Font("Open Sans", 0 , 12);
-			  enterSB = new JButton("Search");
+			  enterSB = new JButton("Graph");
 			  backB = new JButton("Return");
 			  dropDownCond = new JComboBox<String> (mainGui.getCond());
 			  menuL = new JLabel ("Graph Feature");
@@ -355,15 +358,13 @@ class GraphPanel extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			    	  
-			    	List<List<Integer>> graph = Graph.connectedTo(Main.cities, dropDownCond.getSelectedItem().toString());
-			    	System.out.println(graph);
-			    	
-			    	
+			    	Graph graph = new Graph();
+					graph.connectedTo(Main.cities, dropDownCond.getSelectedItem().toString());
+					//System.out.println(graph.getGraph());
 			    	JFrame f = new Frame(dropDownCond.getSelectedItem().toString(), false);
 					cp = f.getContentPane();
 					cp.setBounds(50, 50, 1000, 1000);
-					cp.add(new drawGraph(graph, Main.cities));
+					cp.add(new drawGraph(graph.getGraph(), Main.cities));
 			        f.show();
 			        f.setVisible(true);
 			    		
