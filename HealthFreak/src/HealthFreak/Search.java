@@ -5,9 +5,15 @@ import HealthFreak.City;
 import HealthFreak.Heapsort;
 import HealthFreak.QuickSort;
 
+/**
+ * Search class used to search cities by name (Binary Search implementation)
+ */
 public class Search {
-	
-	
+	/**
+	 * Method used to search city by name
+	 * @param cities - array of cities to search
+	 * @param name - name of city to search
+	 */
 	public static City search (City[] cities, String name){
 		synchronized(cities){
 			QuickSort.sort(cities);
@@ -19,7 +25,13 @@ public class Search {
 		}
 		
 	}
-	
+	/**
+	 * Method used to conduct binary search
+	 * @param arr - array of cities to sort
+	 * @param l - left index
+	 * @param r - right index
+	 * @param x - city name to search
+	 */
 	private static int binarySearch(City arr[], int l, int r, String x)
     {
         if (r>=l)
@@ -48,6 +60,11 @@ public class Search {
         //  in array
         return -1;
     }
+	/**
+	 * Method used to determine priority city
+	 * @param y - first city object
+	 * @param z - second city object
+	 */
 	private static boolean less( City y, String z) {
 		
 		int lengtha = (y.getCity()).length();
@@ -69,6 +86,11 @@ public class Search {
 		}
 		return false;
 	}
+	/**
+	 * Method used to determine bigger length
+	 * @param lengtha - first length
+	 * @param lengthb - second length
+	 */
 	private static int max(int lengtha, int lengthb) {
 		if (lengtha - lengthb < 0)
 			return lengthb;
@@ -77,7 +99,4 @@ public class Search {
 		else 
 			return lengthb;
 	}
-	
-	
-
 }

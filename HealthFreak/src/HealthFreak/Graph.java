@@ -4,12 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
+/**
+ * Graph ADT used to store graph object
+ * @author Group 27
+ */
 public class Graph {
 	
 	private static String[] conditions = Constants.conditions;
-	private List<List<Integer>> graph;
+	private List<List<Integer>> graph; // graph representation as adjacency matrix
 	
+	/**
+	 * Constructor used to construct Graph object
+	 */
 	public Graph(){
 		graph = new ArrayList<List<Integer>>();
 		for (int i = 0; i<City.citiesCount; i++){
@@ -20,7 +26,11 @@ public class Graph {
 			graph.add(temp);
 		}
 	}
-	
+	/**
+	 * Mutator method used to determine connected ciites with condition given
+	 * @param ciitesArray - city array
+	 * @param condition to find connected cities for
+	 */
 	public void connectedTo(City[] citiesArray, String condition){
 		int conditionIndex = Arrays.asList(conditions).indexOf(condition);
 		List<City> cities = Arrays.asList(citiesArray);
@@ -43,6 +53,10 @@ public class Graph {
 			}
 		}
 	}
+	/**
+	 * Accessor method used to get graph adjacency matrix
+	 * @reutrn graph
+	 */
 	public List<List<Integer>> getGraph(){
 		return this.graph;
 	}

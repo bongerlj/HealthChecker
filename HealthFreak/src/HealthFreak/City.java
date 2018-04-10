@@ -19,7 +19,7 @@ public class City {
 	 * @param population - population number of city
 	 */
 	City(String cityName, int population){
-		citiesCount+=1;
+		citiesCount+=1; // increment city count everytime we initialize a city object
 		this.cityName=cityName;
 		this.population = population;
 		

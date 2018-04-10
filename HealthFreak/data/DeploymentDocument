@@ -1,0 +1,5 @@
+Steps for successful compilation and runtime of code:
+	1. Navigate to Constants.java and select the appropriate CSV file to parse (ex.csv is the smaller file for fast testing)
+	2. Navigate to mainGui.java and click run
+	3. If the smaller file is being used, wait up to 10 seconds for UI to show up (how fast the UI opens depends on the computer spec)
+	4. Enjoy!!

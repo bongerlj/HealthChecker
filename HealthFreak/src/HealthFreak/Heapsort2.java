@@ -1,5 +1,8 @@
 package HealthFreak;
 
+/**
+ * HeapSort class used to sort data based on cities
+ */
 public class Heapsort2 {
 	
 	/**

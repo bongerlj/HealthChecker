@@ -45,6 +45,9 @@ public class Main {
 						String name = City.objArray[i].getValue(3);
 						int population = Integer.parseInt(City.objArray[i].getValue(17));
 						int condIndex = Arrays.asList(conditions).indexOf(City.objArray[i].getValue(20));
+						
+						// now we will store the parsed data into City objects
+						
 						if (cities[indexOfCity] != null){ // if city does exist in city array
 							if (condIndex != -1){
 								cities[indexOfCity].setCond(condIndex); // update the condition count
@@ -65,7 +68,8 @@ public class Main {
 				e.printStackTrace();
 			}
 			
-			System.out.println("Top 3 Conditions for all cities:");
+			
+			// now lets find the top conditions prevelent in each city
 			
 			for (int i =0; i<cities.length; i++){
 				
@@ -74,11 +78,7 @@ public class Main {
 					System.out.println(cities[i].getTop());
 				}
 			}
-			System.out.println(City.citiesCount);
-			cities = Arrays.copyOfRange(cities,0,City.citiesCount);
-			Graph graph = new Graph();
-			graph.connectedTo(cities, "DIABETES");
-			System.out.println(graph.getGraph());	
+			cities = Arrays.copyOfRange(cities,0,City.citiesCount); // remove all null values from cities array
 		}
 		
 	}

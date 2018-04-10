@@ -1,5 +1,7 @@
 package HealthFreak;
-
+/**
+ * HeapSort class used to sort data based on conditions
+ */
 public class Heapsort {
 		
 		/**
