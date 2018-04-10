@@ -82,8 +82,9 @@ public class Main {
 			System.out.println(City.citiesCount);
 			cities = Arrays.copyOfRange(cities,0,City.citiesCount);
 			//System.out.println(Search.search(citiesList, "Davie").getCity());
-			List<List<Integer>> graph = Graph.connectedTo(cities, "DIABETES");
-			System.out.println(graph);	
+			Graph graph = new Graph();
+			graph.connectedTo(cities, "DIABETES");
+			System.out.println(graph.getGraph());	
 		}
 		
 	}
