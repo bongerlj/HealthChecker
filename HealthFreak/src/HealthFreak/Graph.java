@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Graph {
 	
-	private static String[] conditions = new String[]{"ACCESS2","ARTHRITIS","BINGE","BPHIGH","BPMED","CANCER","CASTHMA","CHD","CSMOKING","DIABETES","HIGHCHOL","KIDNEY","OBESITY"};
+	private static String[] conditions = Constants.conditions;
 	private List<List<Integer>> graph;
 	
 	public Graph(){

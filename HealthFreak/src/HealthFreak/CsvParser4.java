@@ -4,7 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import HealthFreak.City;
-
+/**
+ * Sample Parser 
+ * @author group 27
+ *
+ */
 public class CsvParser4 {
 	
 	public static CSVFile parseFile(File csvFile, boolean hasHeader, char delim) throws Exception {

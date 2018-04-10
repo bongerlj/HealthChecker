@@ -19,51 +19,47 @@ import HealthFreak.Graph;
 // population at index 17
 // location at index 18
 // condition at index 20
+/**
+ * Main Class used for reading CSV file and initialing object arrays
+ * @author Faisal
+ *
+ */
 public class Main {
 	
-	private static String[] conditions = new String[]{"ACCESS2","ARTHRITIS","BINGE","BPHIGH","BPMED","CANCER","CASTHMA","CHD","CSMOKING","DIABETES","HIGHCHOL","KIDNEY","OBESITY"};
+	private static String[] conditions = Constants.conditions;
 	static City[] cities; 
+	/**
+	 * Method used to read CSV file and initialize object arrays
+	 */
 	public static void main(String[]args) {
 		{
 			cities = new City[City.objArray.length];
 			try {
 				
-				File csvFile = new File("ex.csv");
-				CSVFile file = CsvParser4.parseFile(csvFile,  false,  ',');
-				//System.out.println(file);
+				File csvFile = Constants.csvFile;
+				CSVFile file = CsvParser4.parseFile(csvFile,  false,  ','); // parse file and store in objects
 				CSVFile.toArray();
-				
-				
-				
-				//System.out.println(City.objArray[2].getValue(17));
 				for(int i = 1; i < City.objArray.length; i++) {
 					try{
-						int indexOfCity = findCity(cities, City.objArray[i].getValue(3));
+						int indexOfCity = findCity(cities, City.objArray[i].getValue(3)); // 
 						String name = City.objArray[i].getValue(3);
 						int population = Integer.parseInt(City.objArray[i].getValue(17));
-						//Point location = new Point();
 						int condIndex = Arrays.asList(conditions).indexOf(City.objArray[i].getValue(20));
-						if (cities[indexOfCity] != null){
+						if (cities[indexOfCity] != null){ // if city does exist in city array
 							if (condIndex != -1){
-								cities[indexOfCity].setCond(condIndex);
-								//cities[indexOfCity].setCond(0);
+								cities[indexOfCity].setCond(condIndex); // update the condition count
 							}
-						}else{
+						}else{ // otherwise create a new city
 							if (!name.equals("")){
 								cities[indexOfCity] = new City(name, population);
 								if (condIndex != -1){
 									cities[indexOfCity].setCond(condIndex);
 								}
 							}
-							
-							
 						}
-						//
 					}catch (Exception e) {
 						System.out.println("Not valid city");
 					}
-						
-					//System.out.println(City.objArray[i].getValue(20));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -75,20 +71,23 @@ public class Main {
 				
 				if (cities[i]!=null){
 					cities[i].top_three();
-					//System.out.println(Arrays.toString(cities[i].getCond()));
 					System.out.println(cities[i].getTop());
 				}
 			}
 			System.out.println(City.citiesCount);
 			cities = Arrays.copyOfRange(cities,0,City.citiesCount);
-			//System.out.println(Search.search(citiesList, "Davie").getCity());
 			Graph graph = new Graph();
 			graph.connectedTo(cities, "DIABETES");
 			System.out.println(graph.getGraph());	
 		}
 		
 	}
-	public static int findCity(City[] cities, String city){
+	/**
+	 * Method used to find where to append next city object
+	 * @param cities - city object array
+	 * @param city - string name of city
+	 */
+	public static int findCity(City[] cities, String city){ 
 		for (int i =0; i<cities.length; i++){
 			
 			if (cities[i] == null){
@@ -99,14 +98,5 @@ public class Main {
 			}
 		}
 		return -1;
-	}
-
-	public static Point point(String p){
-		String first;
-		String second;
-		for (int i=0; i<p.length(); i++){
-		}
-		return new Point(0,0);
-		
 	}
 }

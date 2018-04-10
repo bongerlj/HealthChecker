@@ -7,40 +7,37 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * mainGui class meant display a user interface
+ */
 public class mainGui {
 	static Container cp;
 	static JFrame  f;
-	private static String[] conditions = new String[]{"ACCESS2","ARTHRITIS","BINGE","BPHIGH","BPMED","CANCER","CASTHMA","CHD","CSMOKING","DIABETES","HIGHCHOL","KIDNEY","OBESITY"};
+	private static String[] conditions = Constants.conditions;
 	static City[] cities = new City[City.objArray.length];
-	
+	/**
+	 * Method used to read the file first then display the UI
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		
-		Main.main(null);
+		Main.main(null); // initailize arrays in Main
 		cities = Main.cities;
 		
 		
-		f = new Frame("Health Freak", true);
+		f = new Frame("Health Freak", true); // open new window
 		cp = f.getContentPane();
-		cp.add(new MainMenu());
+		cp.add(new MainMenu()); // show main menu
         f.show();
         f.setVisible(true);
 	}
-	
-	
-	public static int findCity(City[] cities, String city){
-		for (int i =0; i<cities.length; i++){
-			
-			if (cities[i] == null){
-				return i;
-			}
-			else if(city.equals(cities[i].getCity())){
-				return i;
-			}
-		}
-		return -1;
-	}
+	/**
+	 * Method used to get string representation of conditions index
+	 * @param cond - condtions array
+	 * @return s - string value of conditions
+	 */
 	public static String toString(int[]cond){
 		String s="";
 		for (int i =0; i<13; i++)
@@ -50,9 +47,17 @@ public class mainGui {
 		}
 		return s;
 	}
+	/**
+	 * Method used to get conditions
+	 * @return conditions
+	 */
 	public static String [] getCond(){
 		return conditions;
 	}
+	/**
+	 * Method used to get cities
+	 * @return city name
+	 */
 	public static String [] getCities(){
 		String [] s = new String [cities.length]; 
 		for (int i = 0; i < cities.length; i++)
@@ -61,28 +66,30 @@ public class mainGui {
 		}
 		return s;
 	}
-	
-	
+	/**
+	 * Method used to switch between UI seletions
+	 * @param integer value of selected UI element
+	 */
 	public static void paneSwitch(int i){
 		switch (i) {
 	    case 0:
 	    	f.getContentPane().removeAll();
-	    	f.getContentPane().add(new MainMenu());
+	    	f.getContentPane().add(new MainMenu()); // loads main menu
 
 	    	break;
 	    case 1:
 	    	f.getContentPane().removeAll();
-	    	f.getContentPane().add(new SearchPanel());
+	    	f.getContentPane().add(new SearchPanel()); // loads search panel
 
 	        break;
 	    case 2:
 	    	f.getContentPane().removeAll();
-	    	f.getContentPane().add(new SortPanel());
+	    	f.getContentPane().add(new SortPanel()); // loads sort panel
 
 	        break;
 	    case 3:
 	    	f.getContentPane().removeAll();
-	    	f.getContentPane().add(new GraphPanel());
+	    	f.getContentPane().add(new GraphPanel()); // loads graph panel
 
 	        break;
 		}
@@ -90,7 +97,15 @@ public class mainGui {
         f.getContentPane().repaint();
 	}
 }
+/**
+ * Class used open custom windows
+ */
 class Frame extends JFrame {
+	/**
+	 * Method used open custom windows
+	 * @param name - name of window
+	 * @param close - weather to exit program on close
+	 */
 	  public Frame(String name, Boolean close) {
 		setTitle(name);
 		setSize(800,800); //set size
@@ -104,6 +119,9 @@ class Frame extends JFrame {
 		} );
 	  }
 }
+/**
+ * Class used to display main menu class
+ */
 class MainMenu extends JPanel {
 	Font [] fs;
 	JButton searchB;
@@ -112,6 +130,9 @@ class MainMenu extends JPanel {
 	JButton backB;
 	JLabel menuL;
 	JTextArea tA;
+	/**
+	 * Method used open main menu in current window
+	 */
 		  public MainMenu() {
 			  fs = new Font [3];
 			  fs[0]  = new Font("Lato", Font.BOLD, 36);
@@ -129,17 +150,20 @@ class MainMenu extends JPanel {
 			  backB.setFont(fs[2]);
 			  menuL.setFont(fs[0]);
 			  backB.setVisible(false);
+			  
+			  // UI elements to load in view
 			  add(menuL, BorderLayout.PAGE_START);
 			  add(searchB, BorderLayout.LINE_START);
 			  add(sortB, BorderLayout.CENTER);
 			  add(graphB, BorderLayout.LINE_END);
 			  add(backB, BorderLayout.PAGE_END);
+			  
+			  // listens to buttons pressed
 			  searchB.addActionListener( new ActionListener()
 			  {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          //System.out.println("searchB clicked");
 			          mainGui.paneSwitch(1);
 			      }
 			  });
@@ -148,7 +172,6 @@ class MainMenu extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          //System.out.println("sortB clicked");
 			          mainGui.paneSwitch(2);
 			      }
 			  });
@@ -157,7 +180,6 @@ class MainMenu extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          //System.out.println("graphhB clicked");
 			          mainGui.paneSwitch(3);
 			      }
 			  });
@@ -166,12 +188,14 @@ class MainMenu extends JPanel {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			          //System.out.println("backB clicked");
 			          mainGui.paneSwitch(0);
 			      }
 			  });
 		  }
 }
+/**
+ * Class to load Search panel in existing window
+ */
 class SearchPanel extends JPanel {
 	private static String[] conditions = new String[]{"ACCESS2","ARTHRITIS","BINGE","BPHIGH","BPMED","CANCER","CASTHMA","CHD","CSMOKING","DIABETES","HIGHCHOL","KIDNEY","OBESITY"};
 
@@ -181,6 +205,9 @@ class SearchPanel extends JPanel {
 	JLabel menuL;
 	JTextField tF;
 	JTextArea tA;
+	/**
+	 * Method used open search panel
+	 */
 		  public SearchPanel() {
 			  fs = new Font [3];
 			  fs[0]  = new Font("Lato", Font.BOLD, 36);
@@ -198,6 +225,8 @@ class SearchPanel extends JPanel {
 			  //tA.setPreferredSize(new Dimension( 200, 24 ));
 			  tA.setEditable(false);
 			  tA.setLineWrap(true);
+			  
+			  // loads UI elements in view
 			  add(menuL, BorderLayout.PAGE_START);
 			  add(tF, BorderLayout.LINE_START);
 			  add(enterSB, BorderLayout.CENTER);	  
@@ -206,11 +235,10 @@ class SearchPanel extends JPanel {
 			  enterSB.addActionListener( new ActionListener()
 			  {
 			      @Override
-			      public void actionPerformed(ActionEvent e)
+			      public void actionPerformed(ActionEvent e) // if search is clicked
 			      {
-			    	  //System.out.println(Search.search(Main.cities, "Alabama").getCity());
 			    	  tA.setText("Loading...");
-			    	  City city = Search.search(Main.cities, tF.getText());
+			    	  City city = Search.search(Main.cities, tF.getText()); // search the city by name
 			    	  
 			    	  if (city == null){
 			    		  tA.setText("Couldn't find city!");
@@ -220,17 +248,19 @@ class SearchPanel extends JPanel {
 			    	  }
 			      }
 			  });
-			  backB.addActionListener( new ActionListener()
+			  backB.addActionListener( new ActionListener() // if back is clicked
 			  {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
-			         // System.out.println("backB clicked");
-			          mainGui.paneSwitch(0);
+			          mainGui.paneSwitch(0); // go back to main menu
 			      }
 			  });
 		  }
 }
+/**
+ * Class used to display sort panel in existing window
+ */
 class SortPanel extends JPanel {
 	Font [] fs;
 	JButton enterCondB;
@@ -240,6 +270,9 @@ class SortPanel extends JPanel {
 	JComboBox dropDownCond;
 	JComboBox dropDownCity;	
 	JTextArea tA;
+	/**
+	 * Method used open sort panel
+	 */
 		  public SortPanel() {
 			  fs = new Font [3];
 			  fs[0]  = new Font("Lato", Font.BOLD, 36);
@@ -260,6 +293,8 @@ class SortPanel extends JPanel {
 			  dropDownCond.setPreferredSize(new Dimension( 200, 24 ));
 			  dropDownCity.setPreferredSize(new Dimension( 200, 24 ));
 			  tA.setEditable(false);
+			  
+			  // loads UI elements in view
 			  add(menuL, BorderLayout.PAGE_START);
 			  add(dropDownCond, BorderLayout.LINE_START);
 			  add(enterCondB, BorderLayout.CENTER);
@@ -267,6 +302,7 @@ class SortPanel extends JPanel {
 			  add(enterCityB, BorderLayout.CENTER);	  
 			  add(tA, BorderLayout.LINE_END);
 			  add(backB, BorderLayout.PAGE_END);
+			  //listens to sort by cond button to be pressed
 			  enterCondB.addActionListener( new ActionListener()
 			  {
 			      @Override
@@ -286,6 +322,7 @@ class SortPanel extends JPanel {
 			    		  tA.append("\n"+c[i].getCity()+ ", "+c[i].getCond(n));
 			      }
 			  });
+			  //listens to sort by city button to be pressed
 			  enterCityB.addActionListener( new ActionListener()
 			  {
 			      @Override
@@ -309,6 +346,7 @@ class SortPanel extends JPanel {
 			    		  tA.append("\n"+s[i]+ ", " +cond[i]);
 			      }
 			  });
+			  //listens to back button to be pressed
 			  backB.addActionListener( new ActionListener()
 			  {
 			      @Override
@@ -320,6 +358,10 @@ class SortPanel extends JPanel {
 			  });
 		  }
 }
+
+/**
+ * Class used to display graph panel in existing window
+ */
 class GraphPanel extends JPanel {
 	
 	Font [] fs;
@@ -330,6 +372,9 @@ class GraphPanel extends JPanel {
 	JLabel menuL;
 	static Container cp;
 	JTextArea tA;
+	/**
+	 * Method used to display graph panel in existing window
+	 */
 		  public GraphPanel() {
 			  fs = new Font [3];
 			  fs[0]  = new Font("Lato", Font.BOLD, 36);
@@ -348,19 +393,19 @@ class GraphPanel extends JPanel {
 			  tF.setPreferredSize(new Dimension( 200, 24 ));
 			  tA.setPreferredSize(new Dimension(200, 100 ));
 			  tA.setEditable(false);
+			  
+			  //loads UI elements in view
 			  add(menuL, BorderLayout.PAGE_START);
 			  add(dropDownCond, BorderLayout.LINE_START);
-			  //add(tA, BorderLayout.CENTER);	  
 			  add(backB, BorderLayout.PAGE_END);
 			  add(enterSB, BorderLayout.CENTER);	
-			  enterSB.addActionListener( new ActionListener()
+			  enterSB.addActionListener( new ActionListener() // if graph button is pressed
 			  {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
 			      {
 			    	Graph graph = new Graph();
 					graph.connectedTo(Main.cities, dropDownCond.getSelectedItem().toString());
-					//System.out.println(graph.getGraph());
 			    	JFrame f = new Frame(dropDownCond.getSelectedItem().toString(), false);
 					cp = f.getContentPane();
 					cp.setBounds(50, 50, 1000, 1000);
@@ -370,7 +415,7 @@ class GraphPanel extends JPanel {
 			    		
 			      }
 			  });
-			  backB.addActionListener( new ActionListener()
+			  backB.addActionListener( new ActionListener() // if back button is pressed
 			  {
 			      @Override
 			      public void actionPerformed(ActionEvent e)
